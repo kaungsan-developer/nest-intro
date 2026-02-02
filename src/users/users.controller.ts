@@ -13,11 +13,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Controller('users')
 export class UsersController {
-  usersService: UsersService;
-
-  constructor() {
-    this.usersService = new UsersService();
-  }
+  constructor(private usersService: UsersService) {}
 
   @Get()
   getUsers() {

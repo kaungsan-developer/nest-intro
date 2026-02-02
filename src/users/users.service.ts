@@ -1,6 +1,13 @@
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { AuthService } from 'src/auth/auth.service';
 
+@Injectable()
 export class UsersService {
+  constructor(
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService,
+  ) {}
   users: CreateUserDto[] = [
     {
       id: 1,
@@ -8,6 +15,7 @@ export class UsersService {
       email: 'mgmg@example.com',
       gender: 'female',
       isMarried: false,
+      password: 'password',
     },
     {
       id: 2,
@@ -15,6 +23,7 @@ export class UsersService {
       email: 'alex@example.com',
       gender: 'male',
       isMarried: true,
+      password: 'password',
     },
     {
       id: 3,
@@ -22,6 +31,7 @@ export class UsersService {
       email: 'sophia@example.com',
       gender: 'female',
       isMarried: false,
+      password: 'password',
     },
     {
       id: 4,
@@ -29,6 +39,7 @@ export class UsersService {
       email: 'liam@example.com',
       gender: 'male',
       isMarried: false,
+      password: 'password',
     },
     {
       id: 5,
@@ -36,6 +47,7 @@ export class UsersService {
       email: 'emma@example.com',
       gender: 'female',
       isMarried: true,
+      password: 'password',
     },
     {
       id: 6,
@@ -43,6 +55,7 @@ export class UsersService {
       email: 'noah@example.com',
       gender: 'male',
       isMarried: false,
+      password: 'password',
     },
     {
       id: 7,
@@ -50,6 +63,7 @@ export class UsersService {
       email: 'ava@example.com',
       gender: 'female',
       isMarried: false,
+      password: 'password',
     },
     {
       id: 8,
@@ -57,6 +71,7 @@ export class UsersService {
       email: 'oliver@example.com',
       gender: 'male',
       isMarried: true,
+      password: 'password',
     },
     {
       id: 9,
@@ -64,6 +79,7 @@ export class UsersService {
       email: 'mia@example.com',
       gender: 'female',
       isMarried: false,
+      password: 'password',
     },
     {
       id: 10,
@@ -71,10 +87,14 @@ export class UsersService {
       email: 'ethan@example.com',
       gender: 'male',
       isMarried: true,
+      password: 'password',
     },
   ];
 
   getAllUsers() {
+    if (!this.authService.isAuthenticated) {
+      return 'you are not authenticated.';
+    }
     return this.users;
   }
 
